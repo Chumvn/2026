@@ -1,0 +1,1567 @@
+/* ===== ROOT VARIABLES ===== */
+:root {
+    --red-primary: #C41E3A;
+    --red-dark: #8B0000;
+    --red-light: #FF4D4D;
+    --gold-primary: #FFD700;
+    --gold-dark: #B8860B;
+    --gold-light: #FFF8DC;
+    --white: #FFFFFF;
+    --black: #1A0000;
+    --gradient-red: linear-gradient(135deg, #C41E3A 0%, #8B0000 50%, #5C0000 100%);
+    --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #B8860B 100%);
+    --shadow-gold: 0 0 30px rgba(255, 215, 0, 0.5);
+    --shadow-red: 0 0 30px rgba(196, 30, 58, 0.5);
+}
+
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--gradient-red);
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    overflow-x: hidden;
+    position: relative;
+    color: var(--white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== CSS ICONS ===== */
+.icon-lantern {
+    display: block;
+    width: 40px;
+    height: 50px;
+    background: linear-gradient(180deg, #FF4500 0%, #DC143C 50%, #8B0000 100%);
+    border-radius: 50% 50% 45% 45%;
+    position: relative;
+    box-shadow: 0 0 20px rgba(255, 100, 0, 0.8);
+}
+
+.icon-lantern::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 10px;
+    background: #FFD700;
+    border-radius: 3px 3px 0 0;
+}
+
+.icon-lantern::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 15px;
+    background: linear-gradient(180deg, #FFD700, #B8860B);
+}
+
+.icon-flower,
+.icon-flower-2 {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle, #FFD700 20%, #FF69B4 40%, #FF1493 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
+}
+
+.icon-flower-2 {
+    background: radial-gradient(circle, #FFD700 20%, #FF6B6B 40%, #DC143C 100%);
+}
+
+.icon-envelope {
+    display: block;
+    width: 35px;
+    height: 25px;
+    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+    border-radius: 3px;
+    position: relative;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    border: 2px solid #FFD700;
+}
+
+.icon-envelope::before {
+    content: '福';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #FFD700;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Card Icons */
+.card-icon {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.icon-moon {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #8B0000;
+}
+
+.icon-moon::before {
+    content: '☽';
+}
+
+.icon-broom {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
+}
+
+.icon-broom::before {
+    content: '✧';
+}
+
+.icon-party {
+    background: linear-gradient(135deg, #E91E63, #C2185B);
+    color: white;
+}
+
+.icon-party::before {
+    content: '★';
+}
+
+.icon-firework {
+    background: linear-gradient(135deg, #FFD700, #FF6B35);
+    color: #8B0000;
+    animation: pulseIcon 1.5s ease-in-out infinite;
+}
+
+.icon-firework::before {
+    content: '✦';
+    font-size: 28px;
+}
+
+.icon-home {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+}
+
+.icon-home::before {
+    content: '⌂';
+}
+
+.icon-teacher {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+    color: white;
+}
+
+.icon-teacher::before {
+    content: '✎';
+}
+
+.icon-work {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: white;
+}
+
+.icon-work::before {
+    content: '◈';
+}
+
+.icon-lantern-small {
+    background: linear-gradient(135deg, #DC143C, #8B0000);
+    color: #FFD700;
+}
+
+.icon-lantern-small::before {
+    content: '◎';
+}
+
+/* Wish Icons */
+.wish-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    font-size: 24px;
+}
+
+.icon-envelope-gold {
+    background: linear-gradient(135deg, #DC143C, #8B0000);
+    border: 2px solid #FFD700;
+}
+
+.icon-envelope-gold::before {
+    content: '福';
+    color: #FFD700;
+}
+
+.icon-coin {
+    background: linear-gradient(135deg, #FFD700, #B8860B);
+}
+
+.icon-coin::before {
+    content: '$';
+    color: #8B0000;
+    font-weight: bold;
+}
+
+.icon-heart {
+    background: linear-gradient(135deg, #E91E63, #C2185B);
+}
+
+.icon-heart::before {
+    content: '♥';
+    color: white;
+}
+
+.icon-celebrate {
+    background: linear-gradient(135deg, #FF6B35, #FF4500);
+}
+
+.icon-celebrate::before {
+    content: '★';
+    color: white;
+}
+
+.icon-health {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+}
+
+.icon-health::before {
+    content: '+';
+    color: white;
+    font-weight: bold;
+}
+
+.icon-success {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+}
+
+.icon-success::before {
+    content: '✓';
+    color: white;
+    font-weight: bold;
+}
+
+@keyframes pulseIcon {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* ===== FIREWORKS CANVAS ===== */
+#fireworks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ===== FLOATING ELEMENTS ===== */
+.floating-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.lantern {
+    position: absolute;
+    animation: float 4s ease-in-out infinite;
+}
+
+.lantern-1 {
+    top: 3%;
+    left: 3%;
+    animation-delay: 0s;
+}
+
+.lantern-2 {
+    top: 5%;
+    right: 5%;
+    animation-delay: 1s;
+}
+
+.lantern-2 .icon-lantern {
+    width: 50px;
+    height: 60px;
+}
+
+.lantern-3 {
+    top: 10%;
+    left: 40%;
+    animation-delay: 2s;
+}
+
+.lantern-3 .icon-lantern {
+    width: 30px;
+    height: 40px;
+}
+
+.flower {
+    position: absolute;
+    animation: floatFlower 6s ease-in-out infinite;
+}
+
+.flower-1 {
+    bottom: 15%;
+    left: 5%;
+    animation-delay: 0.5s;
+}
+
+.flower-2 {
+    bottom: 25%;
+    right: 8%;
+    animation-delay: 1.5s;
+}
+
+.lucky-money {
+    position: absolute;
+    top: 25%;
+    right: 3%;
+    animation: floatMoney 5s ease-in-out infinite;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 15px;
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+/* ===== HEADER ===== */
+.header {
+    text-align: center;
+    padding: 30px 15px;
+    animation: fadeInDown 1s ease-out;
+}
+
+.zodiac-main-icon {
+    margin-bottom: 15px;
+}
+
+.horse-icon {
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.title {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.title-line {
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: var(--gold-light);
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.title-main {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 7vw, 3.5rem);
+    font-weight: 900;
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+}
+
+.title-sub {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--white);
+}
+
+/* ===== COUNTDOWN SECTION ===== */
+.countdown-section {
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 25px 15px;
+    margin: 25px 0;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.countdown-title {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--gold-primary);
+}
+
+.countdown-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.time-box {
+    background: linear-gradient(145deg, rgba(139, 0, 0, 0.9), rgba(92, 0, 0, 0.95));
+    border-radius: 16px;
+    padding: 15px 12px;
+    min-width: 65px;
+    text-align: center;
+    border: 2px solid rgba(255, 215, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.time-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+
+.time-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.time-separator {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--gold-primary);
+    animation: blink 1s step-end infinite;
+}
+
+.target-date {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.95rem;
+    color: var(--gold-light);
+    font-weight: 600;
+}
+
+/* ===== 12-MONTH CALENDAR SECTION ===== */
+.full-calendar-section {
+    margin: 40px 0;
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.calendar-hint {
+    text-align: center;
+    color: var(--gold-light);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.months-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.month-card {
+    background: linear-gradient(145deg, rgba(139, 0, 0, 0.8), rgba(92, 0, 0, 0.9));
+    border-radius: 16px;
+    padding: 20px 10px;
+    text-align: center;
+    border: 2px solid rgba(255, 215, 0, 0.25);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.month-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.month-card:hover::before {
+    left: 100%;
+}
+
+.month-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--gold-primary);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), var(--shadow-gold);
+}
+
+.month-card:active {
+    transform: scale(0.98);
+}
+
+.month-card.current {
+    border-color: var(--gold-primary);
+    background: linear-gradient(145deg, rgba(255, 215, 0, 0.2), rgba(139, 0, 0, 0.9));
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.month-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold-primary);
+    line-height: 1;
+}
+
+.month-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-top: 5px;
+}
+
+.month-lunar {
+    font-size: 0.7rem;
+    color: var(--gold-light);
+    opacity: 0.8;
+    margin-top: 3px;
+}
+
+/* ===== CALENDAR MODAL ===== */
+.calendar-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    perspective: 1500px;
+}
+
+.calendar-modal.active {
+    display: flex;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.calendar-page {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    background: linear-gradient(180deg, #FFF8DC 0%, #FAEBD7 50%, #F5DEB3 100%);
+    border-radius: 8px;
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(139, 69, 19, 0.3),
+        inset 0 2px 0 rgba(255, 255, 255, 0.5);
+    animation: pageFlipIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-origin: top center;
+    overflow: hidden;
+}
+
+.page-tear {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    background: linear-gradient(180deg, #D2691E 0%, #8B4513 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.page-tear::before,
+.page-tear::after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    box-shadow: 40px 0 0 rgba(0, 0, 0, 0.3), 80px 0 0 rgba(0, 0, 0, 0.3), -40px 0 0 rgba(0, 0, 0, 0.3), -80px 0 0 rgba(0, 0, 0, 0.3);
+}
+
+.close-modal {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    border: none;
+    background: var(--red-dark);
+    color: var(--gold-primary);
+    font-size: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-modal:hover {
+    background: var(--red-primary);
+    transform: rotate(90deg);
+}
+
+.calendar-content {
+    padding: 35px 20px 25px;
+    color: #5C4033;
+    text-align: center;
+}
+
+.cal-month-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--red-dark);
+    margin-bottom: 5px;
+}
+
+.cal-year {
+    font-size: 1rem;
+    color: #8B4513;
+    margin-bottom: 15px;
+}
+
+.cal-lunar-month {
+    background: var(--red-dark);
+    color: var(--gold-primary);
+    padding: 8px 20px;
+    border-radius: 20px;
+    display: inline-block;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.cal-quote {
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #6B4423;
+    padding: 15px;
+    background: rgba(139, 69, 19, 0.1);
+    border-radius: 12px;
+    border-left: 4px solid var(--red-dark);
+    margin-bottom: 20px;
+}
+
+.cal-events {
+    text-align: left;
+}
+
+.cal-events h4 {
+    color: var(--red-dark);
+    font-size: 1rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cal-event-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.cal-event-date {
+    background: var(--red-dark);
+    color: var(--gold-primary);
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.cal-event-info {
+    flex: 1;
+}
+
+.cal-event-name {
+    font-weight: 700;
+    color: #5C4033;
+    font-size: 0.95rem;
+}
+
+.cal-event-lunar {
+    font-size: 0.8rem;
+    color: #8B4513;
+}
+
+@keyframes pageFlipIn {
+    0% {
+        transform: rotateX(-90deg) scale(0.8);
+        opacity: 0;
+    }
+
+    100% {
+        transform: rotateX(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes pageFlipOut {
+    0% {
+        transform: rotateX(0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: rotateX(90deg) scale(0.8);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ===== DAYS GRID (365 days calendar) ===== */
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin: 15px 0;
+}
+
+.day-header {
+    font-weight: 700;
+    font-size: 0.7rem;
+    color: #8B4513;
+    text-align: center;
+    padding: 6px 2px;
+    background: rgba(139, 69, 19, 0.1);
+    border-radius: 4px;
+}
+
+.day-header:first-child {
+    color: #C41E3A;
+}
+
+.day-cell {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
+    padding: 4px 2px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    min-height: 42px;
+}
+
+.day-cell:hover {
+    background: rgba(255, 215, 0, 0.3);
+    transform: scale(1.08);
+    z-index: 5;
+}
+
+.day-cell.empty {
+    background: transparent;
+    cursor: default;
+}
+
+.day-cell.empty:hover {
+    transform: none;
+}
+
+.day-cell.today {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    box-shadow: 0 2px 8px rgba(255, 165, 0, 0.5);
+}
+
+.day-cell.sunday .day-solar {
+    color: #C41E3A;
+}
+
+.day-cell.saturday .day-solar {
+    color: #1976D2;
+}
+
+.day-cell.tet-day {
+    background: linear-gradient(135deg, #C41E3A, #8B0000);
+}
+
+.day-cell.tet-day .day-solar,
+.day-cell.tet-day .day-lunar {
+    color: #FFD700 !important;
+}
+
+.day-cell.has-event::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 5px;
+    height: 5px;
+    background: #C41E3A;
+    border-radius: 50%;
+}
+
+.day-solar {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #5C4033;
+    line-height: 1.2;
+}
+
+.day-lunar {
+    font-size: 0.55rem;
+    color: #8B4513;
+    opacity: 0.8;
+}
+
+/* Calendar Legend */
+.cal-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+    font-size: 0.7rem;
+    color: #8B4513;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.legend-dot.today {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+}
+
+.legend-dot.event {
+    background: #C41E3A;
+}
+
+.legend-dot.tet {
+    background: linear-gradient(135deg, #C41E3A, #8B0000);
+}
+
+/* Day Detail Panel */
+.day-detail-panel {
+    display: none;
+    margin-top: 15px;
+    padding: 12px;
+    background: linear-gradient(135deg, #8B0000, #5C0000);
+    border-radius: 10px;
+    color: white;
+}
+
+.day-detail-panel.active {
+    display: block;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.detail-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.detail-solar-day {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #FFD700;
+    line-height: 1;
+}
+
+.detail-info {
+    text-align: left;
+}
+
+.detail-weekday {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #FFD700;
+}
+
+.detail-solar {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.detail-lunar {
+    background: rgba(255, 215, 0, 0.2);
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+}
+
+.lunar-label {
+    color: rgba(255, 255, 255, 0.7);
+    margin-right: 6px;
+}
+
+.lunar-value {
+    font-weight: 700;
+    color: #FFD700;
+}
+
+.detail-event {
+    background: #FFD700;
+    color: #8B0000;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.event-icon {
+    font-size: 1rem;
+}
+
+/* ===== TET CALENDAR SECTION ===== */
+.calendar-section {
+    margin: 40px 0;
+    animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold-primary);
+    margin-bottom: 20px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+}
+
+.calendar-card {
+    background: linear-gradient(145deg, rgba(139, 0, 0, 0.75), rgba(92, 0, 0, 0.85));
+    border-radius: 16px;
+    padding: 18px 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.calendar-card:active {
+    transform: scale(0.98);
+}
+
+.calendar-card.highlight {
+    border-color: rgba(255, 215, 0, 0.5);
+    background: linear-gradient(145deg, rgba(184, 134, 11, 0.3), rgba(139, 0, 0, 0.85));
+}
+
+.calendar-card.featured {
+    border: 2px solid var(--gold-primary);
+    background: linear-gradient(145deg, rgba(255, 215, 0, 0.2), rgba(139, 0, 0, 0.9));
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+}
+
+.card-date {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gold-primary);
+    margin-bottom: 4px;
+}
+
+.card-lunar {
+    font-size: 0.85rem;
+    color: var(--gold-light);
+    margin-bottom: 8px;
+    font-style: italic;
+}
+
+.card-event {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+}
+
+.card-desc {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* ===== WISHES SECTION ===== */
+.wishes-section {
+    margin: 40px 0;
+    animation: fadeInUp 1s ease-out 0.7s both;
+}
+
+.wishes-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.wish-card {
+    background: linear-gradient(145deg, rgba(255, 215, 0, 0.15), rgba(184, 134, 11, 0.25));
+    border-radius: 16px;
+    padding: 18px 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.wish-card:active {
+    transform: scale(0.97);
+}
+
+.wish-card p {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--gold-light);
+}
+
+/* ===== ZODIAC SECTION ===== */
+.zodiac-section {
+    margin: 40px 0;
+    animation: fadeInUp 1s ease-out 0.9s both;
+}
+
+.zodiac-card {
+    background: linear-gradient(145deg, rgba(0, 0, 0, 0.4), rgba(139, 0, 0, 0.5));
+    border-radius: 24px;
+    padding: 30px 20px;
+    text-align: center;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.zodiac-icon {
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.6));
+}
+
+.zodiac-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--gold-primary);
+    margin-bottom: 12px;
+}
+
+.zodiac-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--gold-light);
+    margin-bottom: 15px;
+}
+
+.zodiac-traits {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.zodiac-traits span {
+    background: rgba(255, 215, 0, 0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--gold-light);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    text-align: center;
+    padding: 30px 15px;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+    margin-top: 30px;
+}
+
+.footer p {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--gold-primary);
+}
+
+.footer-sub {
+    font-size: 0.9rem !important;
+    color: var(--gold-light) !important;
+    margin-top: 8px;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(5deg);
+    }
+}
+
+@keyframes floatFlower {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-12px) rotate(10deg);
+    }
+}
+
+@keyframes floatMoney {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(-3deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(3deg);
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+    .months-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .month-card {
+        padding: 15px 8px;
+    }
+
+    .month-number {
+        font-size: 1.6rem;
+    }
+
+    .month-name {
+        font-size: 0.75rem;
+    }
+
+    .month-lunar {
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    .header {
+        padding: 20px 10px;
+    }
+
+    .horse-icon {
+        width: 80px;
+        height: 80px;
+    }
+
+    .title-line {
+        font-size: 0.9rem;
+        letter-spacing: 3px;
+    }
+
+    .title-sub {
+        font-size: 1.1rem;
+    }
+
+    .countdown-section {
+        padding: 20px 10px;
+        margin: 20px 0;
+    }
+
+    .countdown-title {
+        font-size: 1.1rem;
+    }
+
+    .time-box {
+        min-width: 55px;
+        padding: 12px 8px;
+    }
+
+    .time-value {
+        font-size: 1.8rem;
+    }
+
+    .time-label {
+        font-size: 0.65rem;
+    }
+
+    .time-separator {
+        font-size: 1.5rem;
+    }
+
+    .target-date {
+        font-size: 0.85rem;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .calendar-card {
+        padding: 14px 10px;
+    }
+
+    .card-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .card-date {
+        font-size: 1rem;
+    }
+
+    .card-lunar {
+        font-size: 0.75rem;
+    }
+
+    .card-event {
+        font-size: 0.9rem;
+    }
+
+    .card-desc {
+        font-size: 0.7rem;
+    }
+
+    .wishes-container {
+        gap: 10px;
+    }
+
+    .wish-card {
+        padding: 15px 10px;
+    }
+
+    .wish-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .wish-card p {
+        font-size: 0.85rem;
+    }
+
+    .zodiac-card {
+        padding: 25px 15px;
+    }
+
+    .zodiac-icon svg {
+        width: 60px;
+        height: 60px;
+    }
+
+    .zodiac-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .zodiac-card p {
+        font-size: 0.85rem;
+    }
+
+    .zodiac-traits span {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    .lantern-1,
+    .lantern-2,
+    .lantern-3,
+    .flower,
+    .lucky-money {
+        display: none;
+    }
+
+    .calendar-page {
+        width: 95%;
+    }
+
+    .cal-month-header {
+        font-size: 1.5rem;
+    }
+
+    .cal-quote {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 360px) {
+    .months-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .time-box {
+        min-width: 48px;
+        padding: 10px 6px;
+    }
+
+    .time-value {
+        font-size: 1.5rem;
+    }
+
+    .time-separator {
+        font-size: 1.2rem;
+    }
+
+    .calendar-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (hover: none) {
+
+    .calendar-card:hover,
+    .wish-card:hover,
+    .month-card:hover {
+        transform: none;
+    }
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--red-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gold-primary);
+    border-radius: 3px;
+}
+
+/* ===== SAFE AREA ===== */
+@supports (padding: max(0px)) {
+    .container {
+        padding-left: max(15px, env(safe-area-inset-left));
+        padding-right: max(15px, env(safe-area-inset-right));
+    }
+}
+
+/* ===== MUSIC TOGGLE ===== */
+.music-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 18px;
+    background: linear-gradient(145deg, rgba(139, 0, 0, 0.95), rgba(92, 0, 0, 0.98));
+    border: 2px solid var(--gold-primary);
+    border-radius: 50px;
+    color: var(--gold-primary);
+    font-family: 'Quicksand', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.music-toggle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+.music-toggle:active {
+    transform: scale(0.98);
+}
+
+.music-toggle.playing {
+    background: linear-gradient(145deg, rgba(255, 215, 0, 0.3), rgba(139, 0, 0, 0.95));
+    animation: musicPulse 1.5s ease-in-out infinite;
+}
+
+.music-toggle svg {
+    flex-shrink: 0;
+}
+
+@keyframes musicPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    50% {
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5), 0 0 35px rgba(255, 215, 0, 0.6);
+    }
+}
+
+@media (max-width: 480px) {
+    .music-toggle {
+        bottom: 15px;
+        right: 15px;
+        padding: 12px;
+        border-radius: 50%;
+    }
+
+    .music-toggle svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .music-text {
+        display: none;
+    }
+}
