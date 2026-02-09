@@ -467,9 +467,88 @@ function animateFireworks() {
     requestAnimationFrame(animateFireworks);
 }
 
-setInterval(() => { if (Math.random() > 0.4) launchFirework(); }, isMobile ? 1500 : 1000);
-for (let i = 0; i < (isMobile ? 2 : 3); i++) setTimeout(launchFirework, i * 400);
+// Tăng tần suất pháo bông - bắn nhiều hơn và nhanh hơn
+setInterval(() => {
+    if (Math.random() > 0.2) launchFirework();
+    if (Math.random() > 0.5) launchFirework(); // Bắn thêm pháo thứ 2
+}, isMobile ? 800 : 500);
+for (let i = 0; i < (isMobile ? 4 : 6); i++) setTimeout(launchFirework, i * 200);
 animateFireworks();
+
+// ===== FALLING EFFECTS - Tiền rơi & Hoa rơi =====
+function createFallingElements() {
+    const container = document.querySelector('.floating-elements');
+    if (!container) return;
+
+    // Tiền rơi 💰
+    const moneySymbols = ['💰', '💵', '💴', '💶', '💷', '🧧', '🪙'];
+    // Hoa rơi 🌸
+    const flowerSymbols = ['🌸', '🌺', '🌹', '🏵️', '💮', '🌼', '🌷'];
+
+    function createFallingItem(isFlower) {
+        const item = document.createElement('div');
+        const symbols = isFlower ? flowerSymbols : moneySymbols;
+        item.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        item.style.cssText = `
+            position: fixed;
+            top: -50px;
+            left: ${Math.random() * 100}vw;
+            font-size: ${Math.random() * 20 + 15}px;
+            z-index: 100;
+            pointer-events: none;
+            animation: fall ${Math.random() * 4 + 4}s linear forwards;
+            opacity: ${Math.random() * 0.5 + 0.5};
+        `;
+        container.appendChild(item);
+
+        // Xóa element sau khi animation kết thúc
+        setTimeout(() => item.remove(), 8000);
+    }
+
+    // Tạo liên tục
+    setInterval(() => {
+        // Tạo tiền
+        for (let i = 0; i < (isMobile ? 2 : 3); i++) {
+            createFallingItem(false);
+        }
+    }, 600);
+
+    setInterval(() => {
+        // Tạo hoa
+        for (let i = 0; i < (isMobile ? 2 : 4); i++) {
+            createFallingItem(true);
+        }
+    }, 800);
+
+    // Tạo ban đầu
+    for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+            createFallingItem(Math.random() > 0.5);
+        }, i * 100);
+    }
+}
+
+// Thêm CSS animation cho falling effect
+const fallingStyle = document.createElement('style');
+fallingStyle.textContent = `
+    @keyframes fall {
+        0% {
+            transform: translateY(0) rotate(0deg) scale(1);
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.8;
+        }
+        100% {
+            transform: translateY(110vh) rotate(${Math.random() > 0.5 ? '' : '-'}360deg) scale(0.5);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(fallingStyle);
+
+// Khởi tạo hiệu ứng rơi
+createFallingElements();
 
 // ===== CLICK RIPPLE ON CARDS =====
 document.querySelectorAll('.calendar-card, .wish-card').forEach(card => {
