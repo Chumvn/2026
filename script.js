@@ -605,26 +605,23 @@ const tetMusic = document.getElementById('tetMusic');
 tetMusic.volume = 0.5;
 let isPlaying = false;
 
-// Tự động bật nhạc khi trang load (cần user tương tác 1 lần do chính sách trình duyệt)
+// Tự động bật nhạc khi mở trang
 function autoPlayMusic() {
     if (isPlaying) return;
     tetMusic.play().then(() => {
         isPlaying = true;
-        showMusicToast('🎶 Nhạc Tết đang phát');
     }).catch(() => { /* Trình duyệt chặn, chờ user tương tác */ });
 }
 
 // Thử phát ngay
 autoPlayMusic();
 
-// Nếu trình duyệt chặn, phát khi user chạm/nhấn lần đầu
+// Nếu trình duyệt chặn autoplay, phát khi user chạm/nhấn lần đầu
 document.addEventListener('click', function firstClick() {
     autoPlayMusic();
-    document.removeEventListener('click', firstClick);
 }, { once: true });
 document.addEventListener('touchstart', function firstTouch() {
     autoPlayMusic();
-    document.removeEventListener('touchstart', firstTouch);
 }, { once: true });
 
 // Tạo toast thông báo
