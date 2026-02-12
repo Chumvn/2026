@@ -33,33 +33,33 @@ setInterval(updateCountdown, 1000);
 updateCountdown();
 
 // ===== LUNAR CALENDAR CALCULATION =====
-// Dữ liệu âm lịch 2026 (ngày 1 âm lịch mỗi tháng ứng với ngày dương lịch)
-const lunarData2026 = [
-    // [Tháng dương, Ngày dương bắt đầu tháng âm, Tháng âm, Năm âm, Số ngày tháng âm]
-    { solarMonth: 1, solarDay: 1, lunarMonth: 11, lunarYear: 'Ất Tỵ', lunarDay: 12 }, // 01/01 = 12/11 Ất Tỵ
-    { solarMonth: 1, solarDay: 20, lunarMonth: 12, lunarYear: 'Ất Tỵ', startDay: 1 }, // Tháng Chạp bắt đầu
-    { solarMonth: 2, solarDay: 17, lunarMonth: 1, lunarYear: 'Bính Ngọ', startDay: 1 }, // Tết Bính Ngọ
-    { solarMonth: 3, solarDay: 19, lunarMonth: 2, lunarYear: 'Bính Ngọ', startDay: 1 },
-    { solarMonth: 4, solarDay: 17, lunarMonth: 3, lunarYear: 'Bính Ngọ', startDay: 1 },
-    { solarMonth: 5, solarDay: 17, lunarMonth: 4, lunarYear: 'Bính Ngọ', startDay: 1 },
-    { solarMonth: 6, solarDay: 15, lunarMonth: 5, lunarYear: 'Bính Ngọ', startDay: 1 },
-    { solarMonth: 7, solarDay: 15, lunarMonth: 6, lunarYear: 'Bính Ngọ', startDay: 1 },
-    { solarMonth: 8, solarDay: 13, lunarMonth: 7, lunarYear: 'Bính Ngọ', startDay: 1 },
-    { solarMonth: 9, solarDay: 12, lunarMonth: 8, lunarYear: 'Bính Ngọ', startDay: 1 },
-    { solarMonth: 10, solarDay: 11, lunarMonth: 9, lunarYear: 'Bính Ngọ', startDay: 1 },
-    { solarMonth: 11, solarDay: 10, lunarMonth: 10, lunarYear: 'Bính Ngọ', startDay: 1 },
-    { solarMonth: 12, solarDay: 10, lunarMonth: 11, lunarYear: 'Bính Ngọ', startDay: 1 },
+// Dữ liệu âm lịch 2026 - ĐÃ CHỈNH CHÍNH XÁC theo lịch thiên văn
+// Nguồn: Ngày sóc (new moon) tính theo múi giờ Việt Nam (UTC+7)
+// Năm 2026 Bính Ngọ CÓ THÁNG 6 NHUẬN
+
+// Bảng ngày bắt đầu mỗi tháng âm lịch (mồng 1) = ngày dương lịch
+// [solarMonth, solarDay, lunarMonth, lunarYear, daysInLunarMonth, isLeapMonth]
+const lunarMonthStarts2026 = [
+    // Tháng 11 Ất Tỵ bắt đầu 20/12/2025, có 30 ngày → kết thúc 18/01/2026
+    { sM: 1, sD: 19, lM: 12, lY: 'Ất Tỵ', days: 29 },      // 1/12 ÂL = 19/01 DL (29 ngày → 16/02)
+    { sM: 2, sD: 17, lM: 1, lY: 'Bính Ngọ', days: 30 },     // 1/1 ÂL = 17/02 DL - TẾT (30 ngày → 18/03)
+    { sM: 3, sD: 19, lM: 2, lY: 'Bính Ngọ', days: 29 },     // 1/2 ÂL = 19/03 DL (29 ngày → 16/04)
+    { sM: 4, sD: 17, lM: 3, lY: 'Bính Ngọ', days: 30 },     // 1/3 ÂL = 17/04 DL (30 ngày → 16/05)
+    { sM: 5, sD: 17, lM: 4, lY: 'Bính Ngọ', days: 29 },     // 1/4 ÂL = 17/05 DL (29 ngày → 14/06)
+    { sM: 6, sD: 15, lM: 5, lY: 'Bính Ngọ', days: 30 },     // 1/5 ÂL = 15/06 DL (30 ngày → 14/07)
+    { sM: 7, sD: 15, lM: 6, lY: 'Bính Ngọ', days: 29 },     // 1/6 ÂL = 15/07 DL (29 ngày → 12/08)
+    { sM: 8, sD: 13, lM: 6, lY: 'Bính Ngọ', days: 29, leap: true }, // 1/6 Nhuận = 13/08 DL (29 ngày → 10/09)
+    { sM: 9, sD: 11, lM: 7, lY: 'Bính Ngọ', days: 30 },     // 1/7 ÂL = 11/09 DL (30 ngày → 10/10)
+    { sM: 10, sD: 11, lM: 8, lY: 'Bính Ngọ', days: 29 },    // 1/8 ÂL = 11/10 DL (29 ngày → 08/11)
+    { sM: 11, sD: 9, lM: 9, lY: 'Bính Ngọ', days: 30 },     // 1/9 ÂL = 09/11 DL (30 ngày → 08/12)
+    { sM: 12, sD: 9, lM: 10, lY: 'Bính Ngọ', days: 30 },    // 1/10 ÂL = 09/12 DL
 ];
 
 // Ngày trong tháng dương lịch
 const daysInMonth2026 = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-// Chuyển đổi ngày dương sang âm (ước tính)
+// Chuyển đổi ngày dương sang âm
 function solarToLunar(month, day) {
-    // Tính toán đơn giản hóa dựa trên dữ liệu đã biết
-    const lunarMonthNames = ['Giêng', 'Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy', 'Tám', 'Chín', 'Mười', 'M.Một', 'Chạp'];
-
-    // Dữ liệu mapping chi tiết cho năm 2026
     const mapping = getLunarMapping();
     const key = `${month}-${day}`;
 
@@ -75,58 +75,86 @@ function solarToLunar(month, day) {
 function getLunarMapping() {
     const mapping = {};
 
-    // Tháng 1/2026 - 12/11 Ất Tỵ đến cuối tháng Chạp
-    let lunarDay = 12, lunarMonth = 11, lunarYear = 'Ất Tỵ';
-    for (let d = 1; d <= 19; d++) {
+    // === Tháng 1/2026: ngày 1-18 thuộc tháng 11 Ất Tỵ ===
+    // 01/01/2026 = 13/11 Ất Tỵ (Tháng 11 ÂL bắt đầu từ 20/12/2025, có 30 ngày)
+    let lunarDay = 13, lunarMonth = 11, lunarYear = 'Ất Tỵ';
+    for (let d = 1; d <= 18; d++) {
         mapping[`1-${d}`] = { day: lunarDay, month: lunarMonth, year: lunarYear };
         lunarDay++;
         if (lunarDay > 30) { lunarDay = 1; lunarMonth = 12; }
     }
-    // 20/01 = 1/12 Ất Tỵ (Tháng Chạp)
+
+    // === Tháng 1/2026: ngày 19-31 thuộc tháng Chạp (12) Ất Tỵ ===
+    // 19/01 = 1/12 Ất Tỵ
     lunarDay = 1; lunarMonth = 12;
-    for (let d = 20; d <= 31; d++) {
+    for (let d = 19; d <= 31; d++) {
         mapping[`1-${d}`] = { day: lunarDay, month: lunarMonth, year: lunarYear };
         lunarDay++;
     }
 
-    // Tháng 2/2026
+    // === Tháng 2/2026: ngày 1-16 thuộc tháng Chạp (12) Ất Tỵ ===
+    // Tiếp tục tháng 12: lunarDay đang = 14 (sau Jan 31 = 13/12)
     for (let d = 1; d <= 16; d++) {
         mapping[`2-${d}`] = { day: lunarDay, month: lunarMonth, year: lunarYear };
         lunarDay++;
         if (lunarDay > 29) { lunarDay = 1; lunarMonth = 1; lunarYear = 'Bính Ngọ'; }
     }
-    // 17/02 = Mùng 1 Tết Bính Ngọ
+
+    // === 17/02 = Mùng 1 Tết Bính Ngọ ===
     lunarDay = 1; lunarMonth = 1; lunarYear = 'Bính Ngọ';
     for (let d = 17; d <= 28; d++) {
         mapping[`2-${d}`] = { day: lunarDay, month: lunarMonth, year: lunarYear };
         lunarDay++;
     }
 
-    // Tháng 3 đến tháng 12
-    const monthStarts = [
-        { m: 3, startLunarDay: 13, startLunarMonth: 1 },
-        { m: 4, startLunarDay: 14, startLunarMonth: 2 },
-        { m: 5, startLunarDay: 14, startLunarMonth: 3 },
-        { m: 6, startLunarDay: 15, startLunarMonth: 4 },
-        { m: 7, startLunarDay: 16, startLunarMonth: 5 },
-        { m: 8, startLunarDay: 17, startLunarMonth: 6 },
-        { m: 9, startLunarDay: 18, startLunarMonth: 7 },
-        { m: 10, startLunarDay: 19, startLunarMonth: 8 },
-        { m: 11, startLunarDay: 20, startLunarMonth: 9 },
-        { m: 12, startLunarDay: 21, startLunarMonth: 10 },
-    ];
-
-    monthStarts.forEach(ms => {
-        let ld = ms.startLunarDay, lm = ms.startLunarMonth;
-        const daysInM = daysInMonth2026[ms.m - 1];
-        for (let d = 1; d <= daysInM; d++) {
-            mapping[`${ms.m}-${d}`] = { day: ld, month: lm, year: 'Bính Ngọ' };
-            ld++;
-            if (ld > 30) { ld = 1; lm++; if (lm > 12) lm = 1; }
-        }
+    // === Tháng 3 đến tháng 12: tính chính xác từ bảng ngày sóc ===
+    // Dùng bảng lunarMonthStarts2026 để tạo mapping liên tục
+    // Sắp xếp tất cả các mốc theo thứ tự thời gian
+    const milestones = lunarMonthStarts2026.map(m => {
+        const dayOfYear = getDayOfYear2026(m.sM, m.sD);
+        return { dayOfYear, lM: m.lM, lY: m.lY, days: m.days, leap: m.leap || false };
     });
 
+    // Tạo mapping cho từng tháng dương lịch từ tháng 3 đến tháng 12
+    for (let month = 3; month <= 12; month++) {
+        const daysInM = daysInMonth2026[month - 1];
+        for (let d = 1; d <= daysInM; d++) {
+            const doy = getDayOfYear2026(month, d);
+            // Tìm tháng âm lịch tương ứng
+            let found = null;
+            for (let i = milestones.length - 1; i >= 0; i--) {
+                if (doy >= milestones[i].dayOfYear) {
+                    found = milestones[i];
+                    break;
+                }
+            }
+            if (found) {
+                const lunarD = doy - found.dayOfYear + 1;
+                let lMonth = found.lM;
+                let lYear = found.lY;
+                // Nếu ngày vượt quá số ngày tháng âm lịch, chuyển sang tháng tiếp theo
+                if (lunarD <= found.days) {
+                    mapping[`${month}-${d}`] = {
+                        day: lunarD,
+                        month: lMonth,
+                        year: lYear,
+                        isLeapMonth: found.leap
+                    };
+                }
+            }
+        }
+    }
+
     return mapping;
+}
+
+// Tính ngày thứ mấy trong năm 2026
+function getDayOfYear2026(month, day) {
+    let total = 0;
+    for (let m = 0; m < month - 1; m++) {
+        total += daysInMonth2026[m];
+    }
+    return total + day;
 }
 
 // Tên ngày trong tuần
@@ -186,29 +214,29 @@ const monthsData = [
     }
 ];
 
-// Sự kiện đặc biệt
+// Sự kiện đặc biệt (đã chỉnh lại ngày DL cho các ngày lễ ÂL)
 const specialEvents = {
     '1-1': 'Tết Dương Lịch',
-    '2-10': 'Ông Công Ông Táo',
+    '2-10': 'Ông Công Ông Táo (23/12 ÂL)',
     '2-14': 'Valentine',
     '2-17': 'TẾT BÍNH NGỌ',
     '2-18': 'Mùng 2 Tết',
     '2-19': 'Mùng 3 Tết',
-    '3-3': 'Rằm Tháng Giêng',
+    '3-3': 'Rằm Tháng Giêng (15/1 ÂL)',
     '3-8': 'Quốc tế Phụ nữ',
-    '4-2': 'Tết Hàn Thực',
-    '4-10': 'Giỗ Tổ Hùng Vương',
+    '4-19': 'Tết Hàn Thực (3/3 ÂL)',
+    '4-26': 'Giỗ Tổ Hùng Vương (10/3 ÂL)',
     '4-30': 'Giải phóng miền Nam',
     '5-1': 'Quốc tế Lao động',
     '5-19': 'Sinh nhật Bác Hồ',
     '6-1': 'Quốc tế Thiếu nhi',
-    '6-9': 'Tết Đoan Ngọ',
+    '6-19': 'Tết Đoan Ngọ (5/5 ÂL)',
     '6-28': 'Ngày Gia đình VN',
     '7-27': 'Ngày TBLS',
-    '8-10': 'Vu Lan Báo Hiếu',
     '9-2': 'Quốc Khánh',
-    '9-6': 'Tết Trung Thu',
+    '9-25': 'Vu Lan Báo Hiếu (15/7 ÂL)',
     '10-20': 'Ngày Phụ nữ VN',
+    '10-25': 'Tết Trung Thu (15/8 ÂL)',
     '11-20': 'Ngày Nhà giáo VN',
     '12-24': 'Đêm Giáng Sinh',
     '12-25': 'Lễ Giáng Sinh',
@@ -277,7 +305,8 @@ function openCalendarModal(monthData) {
         if (event) classes += ' has-event';
         if (isTet) classes += ' tet-day';
 
-        const lunarText = lunar.day === 1 ? `1/${lunar.month}` : lunar.day;
+        const leapPrefix = lunar.isLeapMonth ? 'N' : '';
+        const lunarText = lunar.day === 1 ? `1/${leapPrefix}${lunar.month}` : lunar.day;
 
         daysHTML += `
             <div class="${classes}" onclick="showDayDetail(${monthData.month}, ${d})">
@@ -316,6 +345,7 @@ window.showDayDetail = function (month, day) {
     const date = new Date(2026, month - 1, day);
     const weekDay = weekDaysFull[date.getDay()];
     const lunarMonthName = lunarMonthNames[lunar.month - 1] || lunar.month;
+    const leapText = lunar.isLeapMonth ? ' Nhuận' : '';
 
     let lunarDayName = lunar.day;
     if (lunar.day === 1) lunarDayName = 'Mùng 1';
@@ -331,7 +361,7 @@ window.showDayDetail = function (month, day) {
         </div>
         <div class="detail-lunar">
             <span class="lunar-label">Âm lịch:</span>
-            <span class="lunar-value">${lunarDayName} Tháng ${lunarMonthName} ${lunar.year}</span>
+            <span class="lunar-value">${lunarDayName} Tháng ${lunarMonthName}${leapText} ${lunar.year}</span>
         </div>
         ${event ? `<div class="detail-event"><span class="event-icon">★</span>${event}</div>` : ''}
     `;
@@ -570,34 +600,78 @@ const rippleStyle = document.createElement('style');
 rippleStyle.textContent = `@keyframes ripple{0%{transform:translate(-50%,-50%) scale(0);opacity:1}100%{transform:translate(-50%,-50%) scale(3);opacity:0}}`;
 document.head.appendChild(rippleStyle);
 
-// ===== MUSIC TOGGLE =====
-const musicToggle = document.getElementById('musicToggle');
+// ===== MUSIC TOGGLE - Nhấn đúp (double-tap) vào trang để bật/tắt =====
 const tetMusic = document.getElementById('tetMusic');
-const musicIconOn = document.querySelector('.music-icon-on');
-const musicIconOff = document.querySelector('.music-icon-off');
+tetMusic.volume = 0.5;
 let isPlaying = false;
 
-musicToggle.addEventListener('click', async () => {
+// Tự động bật nhạc khi trang load (cần user tương tác 1 lần do chính sách trình duyệt)
+function autoPlayMusic() {
+    if (isPlaying) return;
+    tetMusic.play().then(() => {
+        isPlaying = true;
+        showMusicToast('🎶 Nhạc Tết đang phát');
+    }).catch(() => { /* Trình duyệt chặn, chờ user tương tác */ });
+}
+
+// Thử phát ngay
+autoPlayMusic();
+
+// Nếu trình duyệt chặn, phát khi user chạm/nhấn lần đầu
+document.addEventListener('click', function firstClick() {
+    autoPlayMusic();
+    document.removeEventListener('click', firstClick);
+}, { once: true });
+document.addEventListener('touchstart', function firstTouch() {
+    autoPlayMusic();
+    document.removeEventListener('touchstart', firstTouch);
+}, { once: true });
+
+// Tạo toast thông báo
+function showMusicToast(text) {
+    // Xóa toast cũ nếu có
+    const old = document.getElementById('musicToast');
+    if (old) old.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'musicToast';
+    toast.textContent = text;
+    toast.style.cssText = `
+        position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+        background: rgba(139, 0, 0, 0.95); color: #FFD700; padding: 10px 24px;
+        border-radius: 30px; font-family: 'Quicksand', sans-serif; font-size: 0.9rem;
+        font-weight: 600; z-index: 9999; border: 1px solid rgba(255, 215, 0, 0.5);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4); pointer-events: none;
+        animation: toastFade 1.5s ease-out forwards;
+    `;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 1600);
+}
+
+// Thêm CSS animation cho toast
+const toastStyle = document.createElement('style');
+toastStyle.textContent = `@keyframes toastFade{0%{opacity:0;transform:translateX(-50%) translateY(10px)}15%{opacity:1;transform:translateX(-50%) translateY(0)}70%{opacity:1}100%{opacity:0;transform:translateX(-50%) translateY(-10px)}}`;
+document.head.appendChild(toastStyle);
+
+// Double-click / Double-tap để bật tắt nhạc
+document.addEventListener('dblclick', async (e) => {
+    // Bỏ qua nếu nhấn vào modal, nút đóng, hoặc các ô lịch
+    if (e.target.closest('.calendar-modal.active') || e.target.closest('button')) return;
+
     try {
         if (isPlaying) {
             tetMusic.pause();
-            musicToggle.classList.remove('playing');
-            musicIconOn.style.display = 'none';
-            musicIconOff.style.display = 'block';
             isPlaying = false;
+            showMusicToast('🔇 Đã tắt nhạc');
         } else {
             await tetMusic.play();
-            musicToggle.classList.add('playing');
-            musicIconOn.style.display = 'block';
-            musicIconOff.style.display = 'none';
             isPlaying = true;
+            showMusicToast('🎶 Đang phát nhạc');
         }
     } catch (error) {
-        alert('Nhấn vào trang để bật nhạc (do chính sách trình duyệt)');
+        showMusicToast('⚠️ Nhấn đúp lần nữa để bật nhạc');
     }
 });
-
-tetMusic.volume = 0.5;
 
 console.log('%c CHÚC MỪNG NĂM MỚI 2026 - BÍNH NGỌ ',
     'background: linear-gradient(90deg, #C41E3A, #8B0000); color: #FFD700; padding: 15px 30px; font-size: 20px; font-weight: bold;');

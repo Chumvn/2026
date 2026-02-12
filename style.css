@@ -1532,7 +1532,8 @@ body {
     animation: musicPulse 1.5s ease-in-out infinite;
 }
 
-.music-toggle svg {
+.music-icon {
+    font-size: 1.2rem;
     flex-shrink: 0;
 }
 
@@ -1556,9 +1557,8 @@ body {
         border-radius: 50%;
     }
 
-    .music-toggle svg {
-        width: 20px;
-        height: 20px;
+    .music-icon {
+        font-size: 1.1rem;
     }
 
     .music-text {
